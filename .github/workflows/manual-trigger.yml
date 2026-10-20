@@ -1,1 +1,21 @@
+name: Manual Workflow Dispatch
 
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Enter your name'
+        required: true
+        default: 'World'
+      greeting:
+        description: 'Greeting message'
+        required: false
+        default: 'Hello'
+
+jobs:
+  manual-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Input
+        run: |
+          echo "${{ inputs.greeting }}, ${{ inputs.name }}!"
