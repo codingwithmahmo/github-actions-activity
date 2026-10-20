@@ -16,19 +16,29 @@ jobs:
       
       - name: Display OS Information
         run: |
+          echo "========================================"
           echo "Operating System: ${{ runner.os }}"
           echo "Architecture: ${{ runner.arch }}"
+          echo "========================================"
         
-      - name: Print System Info (Ubuntu/Mac)
-        if: runner.os != 'Windows'
+      - name: Print Detailed System Info (Ubuntu)
+        if: runner.os == 'Linux'
         run: |
-          echo "System: $(uname -s)"
-          echo "Version: $(uname -r)"
+          echo "OS Name: Ubuntu (Linux)"
+          echo "Kernel: $(uname -s)"
+          echo "Kernel Version: $(uname -r)"
           
-      - name: Print System Info (Windows)
+      - name: Print Detailed System Info (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          echo "OS Name: macOS"
+          echo "Kernel: $(uname -s)"
+          echo "Kernel Version: $(uname -r)"
+          
+      - name: Print Detailed System Info (Windows)
         if: runner.os == 'Windows'
         run: |
-          echo "Windows Version:"
+          echo "OS Name: Windows"
           cmd /c ver
           
       - name: Check Node Installation
