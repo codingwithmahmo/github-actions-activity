@@ -1,1 +1,12 @@
+name: Scheduled Cron Workflow
 
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  scheduled-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Scheduled Task
+        run: echo "Scheduled workflow executed at $(date)"
