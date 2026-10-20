@@ -29,7 +29,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           echo "Windows Version:"
-          ver
+          cmd /c ver
           
       - name: Check Node Installation
         run: node --version
