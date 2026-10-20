@@ -1,1 +1,38 @@
+name: Context Objects & Logging
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  context-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Log GitHub Context
+        run: |
+          echo "=== GITHUB ACTOR ===" 
+          echo "${{ github.actor }}"
+          echo "=== GITHUB EVENT NAME ===" 
+          echo "${{ github.event_name }}"
+          echo "=== RUNNER OS ===" 
+          echo "${{ runner.os }}"
+          echo "=== WORKFLOW REPO ===" 
+          echo "${{ github.repository }}"
+          
+      - name: Conditional Step - Only on Main
+        if: github.ref == 'refs/heads/main'
+        run: echo "✓ Running on main branch"
+        
+      - name: Conditional Step - Only on Push
+        if: github.event_name == 'push'
+        run: echo "✓ This is a push event"
+        
+      - name: Conditional Step - Check File Exists
+        if: success()
+        run: |
+          if [ -f "README.md" ]; then
+            echo "✓ README exists"
+          fi
