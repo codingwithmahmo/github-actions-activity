@@ -1,1 +1,35 @@
+name: Multi-OS Runners
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-matrix:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Display OS Information
+        run: |
+          echo "Operating System: ${{ runner.os }}"
+          echo "Architecture: ${{ runner.arch }}"
+        
+      - name: Print System Info (Ubuntu/Mac)
+        if: runner.os != 'Windows'
+        run: |
+          echo "System: $(uname -s)"
+          echo "Version: $(uname -r)"
+          
+      - name: Print System Info (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo "Windows Version:"
+          ver
+          
+      - name: Check Node Installation
+        run: node --version
